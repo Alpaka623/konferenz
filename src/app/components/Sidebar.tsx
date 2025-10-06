@@ -1,6 +1,8 @@
-// src/components/Sidebar.tsx
+// src/app/components/Sidebar.tsx
 "use client";
 import * as React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import Avatar from '@mui/joy/Avatar';
 import Box from '@mui/joy/Box';
@@ -22,9 +24,9 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import BrightnessAutoRoundedIcon from '@mui/icons-material/BrightnessAutoRounded';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import { closeSidebar } from '../utils'; // Diese Datei erstellen wir gleich
+import { closeSidebar } from '../utils';
 
-// Hilfskomponente zum Auf- und Zuklappen von Menüpunkten
+// (Die Toggler-Komponente bleibt unverändert)
 function Toggler({
   defaultExpanded = false,
   renderToggle,
@@ -58,6 +60,8 @@ function Toggler({
 }
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <Sheet
       className="Sidebar"
@@ -139,21 +143,25 @@ export default function Sidebar() {
           }}
         >
           <ListItem>
-            <ListItemButton>
-              <HomeRoundedIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Reichsportal</Typography>
-              </ListItemContent>
-            </ListItemButton>
+            <Link href="/" style={{ textDecoration: 'none', width: '100%' }}>
+              <ListItemButton selected={pathname === '/'}>
+                <HomeRoundedIcon />
+                <ListItemContent>
+                  <Typography level="title-sm">Reichsportal</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </Link>
           </ListItem>
 
           <ListItem>
-            <ListItemButton selected>
-              <CastleIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Unser Kaiser</Typography>
-              </ListItemContent>
-            </ListItemButton>
+             <Link href="/kaiser" style={{ textDecoration: 'none', width: '100%' }}>
+              <ListItemButton selected={pathname === '/kaiser'}>
+                <CastleIcon />
+                <ListItemContent>
+                  <Typography level="title-sm">Unser Kaiser</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </Link>
           </ListItem>
 
           <ListItem nested>
@@ -170,31 +178,39 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton>Aktuelle Ausgabe</ListItemButton>
+                  <Link href="/konferenzblaetter/aktuell" style={{ textDecoration: 'none', width: '100%' }}>
+                    <ListItemButton selected={pathname === '/konferenzblaetter/aktuell'}>Aktuelle Ausgabe</ListItemButton>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Archiv</ListItemButton>
+                  <Link href="/konferenzblaetter/archiv" style={{ textDecoration: 'none', width: '100%' }}>
+                    <ListItemButton selected={pathname === '/konferenzblaetter/archiv'}>Archiv</ListItemButton>
+                  </Link>
                 </ListItem>
               </List>
             </Toggler>
           </ListItem>
           
           <ListItem>
-            <ListItemButton>
-              <EventIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Konferenztermine</Typography>
-              </ListItemContent>
-            </ListItemButton>
+            <Link href="/konferenztermine" style={{ textDecoration: 'none', width: '100%' }}>
+              <ListItemButton selected={pathname === '/konferenztermine'}>
+                <EventIcon />
+                <ListItemContent>
+                  <Typography level="title-sm">Konferenztermine</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </Link>
           </ListItem>
 
           <ListItem>
-            <ListItemButton>
-              <GavelIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Kaiserliche Erlasse</Typography>
-              </ListItemContent>
-            </ListItemButton>
+            <Link href="/erlasse" style={{ textDecoration: 'none', width: '100%' }}>
+              <ListItemButton selected={pathname === '/erlasse'}>
+                <GavelIcon />
+                <ListItemContent>
+                  <Typography level="title-sm">Kaiserliche Erlasse</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </Link>
           </ListItem>
 
           <ListItem nested>
@@ -211,10 +227,14 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton>Adelsregister</ListItemButton>
+                   <Link href="/adel" style={{ textDecoration: 'none', width: '100%' }}>
+                    <ListItemButton selected={pathname === '/adel'}>Adelsregister</ListItemButton>
+                  </Link>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton>Bürgerverwaltung</ListItemButton>
+                  <Link href="/buerger" style={{ textDecoration: 'none', width: '100%' }}>
+                    <ListItemButton selected={pathname === '/buerger'}>Bürgerverwaltung</ListItemButton>
+                  </Link>
                 </ListItem>
               </List>
             </Toggler>
